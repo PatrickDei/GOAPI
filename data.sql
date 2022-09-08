@@ -18,3 +18,14 @@ INSERT INTO StaycationUsers (name, dateOfBirth, city, zipcode, status) VALUES
                                                                            ("Johhan", "1978-10-17", "Split", "22000", 0),
                                                                            ("Sebastian", "1978-11-12", "Barcelona", "45678", 0),
                                                                            ("Bach", "1978-12-30", "Rome", "12345", 1);
+
+CREATE TABLE Accounts (
+                                 id int NOT NULL AUTO_INCREMENT,
+                                 userId int NOT NULL,
+                                 openingDate date NOT NULL,
+                                 accountType varchar(20) NOT NULL,
+                                 amount decimal NOT NULL,
+                                 status tinyint(1) NOT NULL DEFAULT '1',
+                                 PRIMARY KEY (id),
+                                 FOREIGN KEY (userId) REFERENCES StaycationUsers(id)
+);

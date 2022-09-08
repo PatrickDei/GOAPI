@@ -40,14 +40,3 @@ func writeResponse(w http.ResponseWriter, code int, data interface{}) {
 		panic(err)
 	}
 }
-
-/*
-func getCustomer(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	fmt.Fprint(w, vars["customer_id"])
-}
-
-func createCustomer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Post request recieved")
-}
-*/

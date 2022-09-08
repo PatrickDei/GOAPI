@@ -2,13 +2,10 @@ package domain
 
 import (
 	"database/sql"
-	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"os"
 	"staycation/errs"
 	"staycation/logger"
-	"time"
 )
 
 type StaycationUserRepositoryDb struct {
@@ -30,17 +27,17 @@ func (d StaycationUserRepositoryDb) FindAll() ([]StaycationUser, *errs.AppError)
 }
 
 func (d StaycationUserRepositoryDb) FindById(id string) (*StaycationUser, *errs.AppError) {
-	customerSql := "SELECT id, name, city, zipcode, dateOfBirth, status from StaycationUsers WHERE id = ?"
+	userSql := "SELECT id, name, city, zipcode, dateOfBirth, status from StaycationUsers WHERE id = ?"
 
 	var u StaycationUser
 
-	err := d.client.Get(&u, customerSql, id)
+	err := d.client.Get(&u, userSql, id)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, errs.NewNotFoundError("Customer not found")
+			return nil, errs.NewNotFoundError("User not found")
 		} else {
-			logger.Error("Error while scanning customer" + err.Error())
+			logger.Error("Error while scanning user" + err.Error())
 			return nil, errs.NewInternalServerError("Unexpected database error")
 		}
 	}
@@ -48,24 +45,6 @@ func (d StaycationUserRepositoryDb) FindById(id string) (*StaycationUser, *errs.
 	return &u, nil
 }
 
-func NewStaycationRepositoryDb() StaycationUserRepositoryDb {
-	user := os.Getenv("DB_USER")
-	password := os.Getenv("DB_PASSWORD")
-	address := os.Getenv("DB_ADDRESS")
-	port := os.Getenv("DB_PORT")
-	dbName := os.Getenv("DB_NAME")
-
-	datasource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", user, password, address, port, dbName)
-
-	db, err := sqlx.Open("mysql", datasource)
-
-	if err != nil {
-		panic(err)
-	}
-
-	db.SetConnMaxLifetime(time.Minute * 3)
-	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(10)
-
-	return StaycationUserRepositoryDb{client: db}
+func NewStaycationRepositoryDb(dbClient *sqlx.DB) StaycationUserRepositoryDb {
+	return StaycationUserRepositoryDb{client: dbClient}
 }

@@ -22,7 +22,7 @@ func (s DefaultStaycationUserService) GetAllStaycationUsers() ([]dto.StaycationU
 		return nil, err
 	}
 
-	response := make([]dto.StaycationUserResponse, len(users))
+	response := make([]dto.StaycationUserResponse, 0)
 	for _, user := range users {
 		response = append(response, user.ToDto())
 	}

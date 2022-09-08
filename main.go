@@ -1,11 +1,12 @@
 package main
 
 import (
+	"os"
 	"staycation/app"
 	"staycation/logger"
 )
 
 func main() {
-	logger.Info("Starting our application...")
+	logger.Info("Listening on port " + os.Getenv("SERVER_PORT"))
 	app.Start()
 }
