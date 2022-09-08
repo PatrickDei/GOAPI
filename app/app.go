@@ -1,14 +1,26 @@
 package app
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"os"
 	"staycation/domain"
 	"staycation/service"
 )
 
+func sanityCheck() {
+	// and so on
+	if os.Getenv("SERVER_ADDRESS") == "" ||
+		os.Getenv("SERVER_PORT") == "" {
+		log.Fatal("Environment variable not defined...")
+	}
+}
+
 func Start() {
+
+	sanityCheck()
 
 	router := mux.NewRouter()
 
@@ -24,5 +36,7 @@ func Start() {
 
 		router.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)*/
 
-	log.Fatal(http.ListenAndServe("localhost:8000", router))
+	address := os.Getenv("SERVER_ADDRESS")
+	port := os.Getenv("SERVER_PORT")
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
 }

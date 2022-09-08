@@ -2,16 +2,11 @@ package domain
 
 import "staycation/errs"
 
-type StaycationUserRepository interface {
-	FindAll() ([]StaycationUser, error)
-	FindById(string) (*StaycationUser, *errs.AppError)
-}
-
 type StaycationUserRepositoryStub struct {
 	staycationUsers []StaycationUser
 }
 
-func (s StaycationUserRepositoryStub) FindAll() ([]StaycationUser, error) {
+func (s StaycationUserRepositoryStub) FindAll() ([]StaycationUser, *errs.AppError) {
 	return s.staycationUsers, nil
 }
 

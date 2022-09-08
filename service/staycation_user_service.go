@@ -2,24 +2,43 @@ package service
 
 import (
 	"staycation/domain"
+	"staycation/dto"
 	"staycation/errs"
 )
 
 type StaycationUserService interface {
-	GetAllStaycationUsers() ([]domain.StaycationUser, error)
-	GetStaycationUserById(string) (*domain.StaycationUser, *errs.AppError)
+	GetAllStaycationUsers() ([]dto.StaycationUserResponse, *errs.AppError)
+	GetStaycationUserById(string) (*dto.StaycationUserResponse, *errs.AppError)
 }
 
 type DefaultStaycationUserService struct {
 	repo domain.StaycationUserRepository
 }
 
-func (s DefaultStaycationUserService) GetAllStaycationUsers() ([]domain.StaycationUser, error) {
-	return s.repo.FindAll()
+func (s DefaultStaycationUserService) GetAllStaycationUsers() ([]dto.StaycationUserResponse, *errs.AppError) {
+	users, err := s.repo.FindAll()
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := make([]dto.StaycationUserResponse, len(users))
+	for _, user := range users {
+		response = append(response, user.ToDto())
+	}
+
+	return response, nil
 }
 
-func (s DefaultStaycationUserService) GetStaycationUserById(id string) (*domain.StaycationUser, *errs.AppError) {
-	return s.repo.FindById(id)
+func (s DefaultStaycationUserService) GetStaycationUserById(id string) (*dto.StaycationUserResponse, *errs.AppError) {
+	u, err := s.repo.FindById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	response := u.ToDto()
+
+	return &response, nil
 }
 
 func NewStaycationUserService(repository domain.StaycationUserRepository) DefaultStaycationUserService {
