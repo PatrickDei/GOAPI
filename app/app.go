@@ -29,12 +29,22 @@ func Start() {
 	// wiring
 	dbClient := getDbClient()
 
-	suh := StaycationUserHandler{service: service.NewStaycationUserService(domain.NewStaycationRepositoryDb(dbClient))}
+	suh := StaycationUserHandler{
+		service: service.NewStaycationUserService(domain.NewStaycationRepositoryDb(dbClient))}
 	ah := AccountHandler{service: service.NewAccountService(domain.NewAccountRepositoryDb(dbClient))}
 
-	router.HandleFunc("/users", suh.getAllStaycationUsers).Methods(http.MethodGet)
-	router.HandleFunc("/users/{user_id:[0-9]+}", suh.getStaycationUserById).Methods(http.MethodGet)
-	router.HandleFunc("/users/{user_id:[0-9]+}/account", ah.createAccount).Methods(http.MethodPost)
+	router.HandleFunc("/users", suh.getAllStaycationUsers).Methods(http.MethodGet).Name("GetAllCustomers")
+	router.HandleFunc("/users/{user_id:[0-9]+}", suh.getStaycationUserById).Methods(http.MethodGet).Name("GetCustomer")
+	router.HandleFunc("/users/{user_id:[0-9]+}/account", ah.createAccount).Methods(http.MethodPost).Name("CreateAccount")
+
+	// middleware
+	router.Use(func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			// before
+			next.ServeHTTP(w, r)
+			// after
+		})
+	})
 
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")

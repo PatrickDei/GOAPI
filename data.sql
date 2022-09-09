@@ -29,3 +29,13 @@ CREATE TABLE Accounts (
                                  PRIMARY KEY (id),
                                  FOREIGN KEY (userId) REFERENCES StaycationUsers(id)
 );
+
+CREATE TABLE Users (
+                          id int NOT NULL AUTO_INCREMENT,
+                          userId int,
+                          username VARCHAR(100) NOT NULL,
+                          password VARCHAR(100) NOT NULL,
+                          role VARCHAR(10),
+                          PRIMARY KEY (id),
+                          FOREIGN KEY (userId) REFERENCES StaycationUsers(id)
+);
