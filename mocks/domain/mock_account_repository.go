@@ -7,7 +7,7 @@ package domain
 import (
 	reflect "reflect"
 	domain "staycation/domain"
-	errs "staycation/errs"
+	errs "github.com/PatrickDei/log-lib/errs"
 
 	gomock "github.com/golang/mock/gomock"
 )

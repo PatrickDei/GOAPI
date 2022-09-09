@@ -7,7 +7,7 @@ package service
 import (
 	reflect "reflect"
 	dto "staycation/dto"
-	errs "staycation/errs"
+	errs "github.com/PatrickDei/log-lib/errs"
 
 	gomock "github.com/golang/mock/gomock"
 )

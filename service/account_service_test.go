@@ -1,10 +1,10 @@
 package service
 
 import (
+	"github.com/PatrickDei/log-lib/errs"
 	"github.com/golang/mock/gomock"
 	realdomain "staycation/domain"
 	"staycation/dto"
-	"staycation/errs"
 	"staycation/mocks/domain"
 	"testing"
 	"time"

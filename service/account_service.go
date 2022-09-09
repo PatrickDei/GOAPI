@@ -1,9 +1,9 @@
 package service
 
 import (
+	"github.com/PatrickDei/log-lib/errs"
 	"staycation/domain"
 	"staycation/dto"
-	"staycation/errs"
 	"time"
 )
 

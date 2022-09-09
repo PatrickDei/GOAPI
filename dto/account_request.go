@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"staycation/errs"
+	"github.com/PatrickDei/log-lib/errs"
 	"strings"
 )
 

@@ -1,8 +1,8 @@
 package domain
 
 import (
+	"github.com/PatrickDei/log-lib/errs"
 	"staycation/dto"
-	"staycation/errs"
 )
 
 type StaycationUser struct {

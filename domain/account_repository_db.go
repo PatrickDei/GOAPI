@@ -1,9 +1,9 @@
 package domain
 
 import (
+	"github.com/PatrickDei/log-lib/errs"
+	"github.com/PatrickDei/log-lib/logger"
 	"github.com/jmoiron/sqlx"
-	"staycation/errs"
-	"staycation/logger"
 	"strconv"
 )
 

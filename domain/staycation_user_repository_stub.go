@@ -1,6 +1,6 @@
 package domain
 
-import "staycation/errs"
+import "github.com/PatrickDei/log-lib/errs"
 
 type StaycationUserRepositoryStub struct {
 	staycationUsers []StaycationUser

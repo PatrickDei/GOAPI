@@ -1,12 +1,12 @@
 package app
 
 import (
+	"github.com/PatrickDei/log-lib/errs"
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
 	"staycation/dto"
-	"staycation/errs"
 	"staycation/mocks/service"
 	"testing"
 )

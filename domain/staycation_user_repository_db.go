@@ -2,10 +2,10 @@ package domain
 
 import (
 	"database/sql"
+	"github.com/PatrickDei/log-lib/errs"
+	"github.com/PatrickDei/log-lib/logger"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"staycation/errs"
-	"staycation/logger"
 )
 
 type StaycationUserRepositoryDb struct {

@@ -1,9 +1,9 @@
 package service
 
 import (
+	"github.com/PatrickDei/log-lib/errs"
 	"staycation/domain"
 	"staycation/dto"
-	"staycation/errs"
 )
 
 //go:generate mockgen -destination=../mocks/service/mock_staycation_user_service.go -package=service staycation/service StaycationUserService
