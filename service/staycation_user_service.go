@@ -6,6 +6,7 @@ import (
 	"staycation/errs"
 )
 
+//go:generate mockgen -destination=../mocks/service/mock_staycation_user_service.go -package=service staycation/service StaycationUserService
 type StaycationUserService interface {
 	GetAllStaycationUsers() ([]dto.StaycationUserResponse, *errs.AppError)
 	GetStaycationUserById(string) (*dto.StaycationUserResponse, *errs.AppError)
